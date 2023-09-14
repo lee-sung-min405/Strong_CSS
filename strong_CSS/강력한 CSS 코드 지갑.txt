@@ -1,0 +1,552 @@
+[html]
+html !로 기본설정
+간편 기능 : ex) p.contents -> tap -> <p class="contents"></p>
+            ex)h1.title#headline -> tap ->  <h1 class="title" id="headline"></h1>
+주석 처리방법 : 슬레시 +ctrl + /
+반복 작성 단축 방법 : ex)div*4
+
+[css]
+font-size : 글자 사이즈
+font-weigth : 글자 두께
+font-style : 글자 기울임(italic)
+text-decoration : 글자 꾸밈 (밑줄(underline), 취소선등)
+color : 글자 색
+
+#지정하는 방법(선택자 조합)
+.box1 .title{
+    color: yellow;
+} 
+
+<box모델>
+content-box : content 영역을 기준으로 box의 size를 적용
+border-box : border 영역을 기준으로 box size를 적용
+ex) 400px을 가진 박스를 만들고 싶다
+    -content-box: 콘텐츠 영역 400px + 패딩 영역 100px = 500px (혼란을 일으킬 수 있다.)
+    -border-box : 콘텐츠 영역 + 패딩영역 = 400px (이게 맞음)
+
+<lnline vs block>
+span 태그는 lnline요소이다.
+
+블록요소
+    - 블록 요소를 여러개 연속해서 쌓을 경우, 자동으로 다음 줄로 넘어간다.
+    - 좌/우 양쪽으로 늘어나 부모 요소의 너비를 가득 채운다.
+    - display: inline; 인라인 요소로 바꿔 주는 명령어
+
+인라인요소
+    -여러개의 요소를 연속해서 입력해도 자동으로 다음 줄로 넘어가지 않는다.
+    - 태그에 할당된 공간 만큼의 너비만 차지한다.
+    *박스를 구경하는 속성이 기본적으로 적용되지 않는다. -> display: block; 로 바꿔주는것이 가능
+
+inline / block 변경
+    - display : inline / block
+
+블록 요소 : div, p, ul, dl, h1, h2, h3, 등등..
+인라인 요소 : a, span, img, strong, em, input, button, textarea, select
+
+<레이아웃>
+Css를 이용하여 단순한 문서 형태인 HTML을 보기 좋게 배치하고 재배열 하는 것.
+관련 기능, 완성된 배열 등을 포괄적으로 지칭한다
+
+<선택자>
+    - 전체 선택자 : HTML 문서의 모든내용을 선택 (*)
+    - 그룹 선택자 : 여러개의 선택자를 동시 지정 (.class1, class2)
+    - 가상 클래스 선택자 : 실제로 html요소를 수정하지 않고, CSS만으로 가상 요소를 추가해 선택할 수 있다. (선택자 : 가상클래스{})
+        ex) .class p:first-child : box1에 첫번째 p태그
+        ex) .class p:last-child : box1에 마지막 p태그
+        ex) .class p:nth-child(n) : box1에 n번째 p태그
+        ex) .button:hover{속성들 작성} : 요소위에 마수으가 올라갔을때 발생되는 이벤트
+
+<css 레이아웃의 흐름>
+Float -> Flex -> Grid
+float는 특정한 블럭을 기준으로 해당요소를 어디에 위치할것인지를 정해주는 태그이다.
+float : none, left, right 
+*clear float 때문에 위로 댕겨진 것을 아래로 당겨주는 역할을한다.
+clear : none(기본값), right (float right가 적용된 요소와 관련이 생긴다.), left (float left가 적용된 요소와 관련이 생긴다.),both(모든 요소 즉, left, rifht 의 영향력을 전부 해제 할 수 있다. 실무에 가장 많이 사용된다.)
+
+[class box라는 두개의 클래스 적용 방법 기존 클래스 명뒤에 띄어쓰기 후 작성하면 된다.]
+ <div class="box1 box">
+        첫번째 박스입니다.<br>
+        float:left가 적용되어 있습니다.
+    </div>
+    <div class="box2 box">
+        두번째 박스입니다.<br>
+        float:right가 적용되어 있습니다.
+    </div>
+[claer : both (실무에서 자주 사용하는 방법)]
+    <div class="clearfix"></div>
+    .clearfix{
+    clear: both;
+}
+clearfix는 특별한 기능은 없지만 실무에서는 관례로 사용된다.
+box3에 both를 적용시키는 것보다 위에 같은 빈 div를 만들어주고 적용을 보통 시켜준다.
+
+text-align: center; 텍스트를 중간으로 정렬하는 태그이다.
+
+
+<Flex>
+구조 : flex-container 안에 flex -item들로 구성이 된다.
+
+display: Flex
+
+flex-direction : row(행, 기본값) | column(열) (정렬의 기준이 되는 방향을 결정한다)
+
+(중심축 방향 정렬)justify-content :  flex - start(컨테이너 시작점을 기준) | flex-end(컨테이너의 끝을 기준) | center(중심을 기준으로 정렬) | space-between(아이템들이 균일한 여백) | space-around(아이템사이에 적절한 여백 + between 즉 첫 끝아이템 사이에도 여백이 들어감) | space-evenly( 첫 끝아이템 사이에도 여백이 들어감, 모든 여백의 크기가 균일하다.)
+
+(중심축 반대 방향 정렬)align-items : stretch(기본값, 아이템들을 늘려 컨테이너를 채운다.) | flex-start(컨테이너의 시작점을 기준으로 정렬) | flex-end(컨테이너의 끝을 기준으로 정렬) | center(중앙을 기준으로 정렬)
+*주의1!! : align-items는 flex-item이 한 줄일 때 우선 적용!! 두 줄 이상일 때에는 align-content라는 다른 속성을 써주어야 한다.
+*주의2!! : flex-direction이 바뀌면 중심축의 방향이 바뀐다. 즉 중심축의 방향이 바뀌면 justify-content외 align-item의 정렬 방향도 함께 바뀌게 된다!
+
+태그의 속성 확인하는 방법 : 해당 태그 속성칸에 커서를 둔다 -> CTRL + i
+
+<선택자2>
+    <가상 클랴스 선택자>
+    :first-of-type = 형제 요소중 첫 번째 요소를 선택하는 가상 클래스, first-child와는 다르게 가상 클래스가 적용된 선택자에 해당 되는 요소만 카운트한다.
+    :first-child <--> :first-of-type
+    :last-child  <--> last-of-type
+    :nth-child(n) <--> :nth-of-type(n)
+
+    :active = 횔성화된 요소(ex) button)를 선택하는 가상 클래스 선택자, 버튼 드을 클릭해서 요소의 동작이 활성화되어있는 상태
+    :focus = focus를 받고 있는 입력창 등의 요소를 선탤하는 가상 클래스 선택자
+    :visited = 사용자가 방무한적 있는 링크를 선택하는 가상 클래스 선택자. (기본컬러 보라색)
+
+    <가상 요소 선택자>
+    실제로 html요소를 수정하지 않고, css만으로 가상 요소를 추가햐 선택할 수 있다.
+    :before
+    :after
+    *content:"" 의 가상요소가 무조건 들어가주어야한다.
+    *실무에서 float레이아웃을 사용할때는 가상 요소 선택자를 더 많이 사용한다.
+    *캐러셀 버튼과 같은 요소에도 사용 (버튼을 누루면 다음 다음이미지가 보이는등 회전 베너를 말한다.)
+
+    <형제 요소 선택자>
+    A와 같은 부모를 가지고 있는 형제 요소들 중 B를 선택한다.
+    A ~ B {
+        property : value
+    }
+
+    CSS를 연습할 수 있는 사이트 : CSS Diner
+    주소 : https://flukeout.github.io/
+
+
+<두줄 짜리 flex 적용하는 방법>
+    Flex-wrap : flex-item이 여러개일 때, item들의 줄바꿈을 허용할 것인지 말 것인지 결정한다.| nowrap(기본값, 무조건 한줄안에 들어가도록 강제한다.) | wrap(넘칠 경우 다음줄로 넘어간다.)
+    *align-items는 flex-item이 한 줄일 떄 우선 적용! 두 줄 이상일 때에는 align-content라는 다른 속성을 써주어야한다.
+    
+    Align-content :  여러줄이 된 Flex-item의 중심 반대 축 정렬을 어떻게 할 지 결정한다.  | stretch(기본값, 컨텐츠를 쭉늘여서 채우는 방법) | flex-start(컨테이너틔 시작점을 기준으로 정렬) | flex-end(컨테이너의 끝을 기준으로 정렬) | center(컨테이너의 중김을 기준으로 정렬) | sapce-between | space-around | space-evenly
+    
+    Flex-flow : flex-direction과 flex-wrap을 합쳐놓은 단축 속성
+    ex)
+        flex-direction :row;           ----->       flex-flow:row wrap
+        flex-wrap:wrap
+
+
+    Flex item에 줄수 있는 속성들 : 지금까지 flex-container에 적용하는 속성들 flex-item에도 속성을 줄 수 있다!
+        order : item의 순서를 지정
+        flex-basis : item의 기본 사이즈를 지정
+        flex-shrink, flex-grow 등등....
+
+<폰트 / 단위 / 상속>
+    CSS 상속 : 부모 요쇼의 속성값을 자식 요소에게 상속한다.
+    상속되는 속성 : color, font-family, font-size 등등
+    상속되지 않는 속성 : padding, margin, border 등등
+    여러개의 상속 속성이 겹쳤을 때, 무엇이 우선 적용될까? = Cascading이라는 룰이 그 우선순위를 결정한다.
+
+<웹폰트>
+HTML요소의 글씨체를 바꾸고 싶다면?
+font-family:"폰트 이름"
+eX) font-family:arial, "맑은 고딕", sans-serif(안전장치임 | 폰트가 없을 경우 사용자의 컴퓨터에서 sans-serif폰트를 가지고 와서 사용한다.);
+    *이렇게 작성될 경우 앞의 순서부터 우선 적용 순위가 된다.
+    *sans-serif 같은 경우 유저 컴퓨터에도 폰트 파일이 설치 되어있어야 글씨체가 제대로 보인다.
+    *웹 폰트(Web Font) : 웹 전용 폰트, 사용자가 로컬(컴퓨터)에 폰트를 직접 설치하지 않아도 특정 서버에 위치한 폰트를 다운 받아 웹페이지에 표시해 준다.
+        웹폰트 적용 방법
+            - 폰트 파일을 직접 다운로드 받아서 적용하는 방법 : @font-face 이용
+                코드 ) 
+                    @font-face{
+                        font-family: 'Pretendard';
+                        font-weight:900;
+                        font-display:swap;
+                        src:
+                            local('Pretendard Black'),
+                            url(./woff2-subset/Pretendard-Block.subset.woff2) format('woff2'),
+                            url(./woff-subset/Pretendard-Block.subset.woff) format('woff');
+                    }
+                    .inline-container span{
+                        background :red;
+                        display:block;
+                        font-family:"Pretendard", "돋음", sans-serif;
+                    }
+                1.웹폰트 파일을 준비한다. 확장자명 woff/ woff2 / ttf / eot
+                2.Css문서에서 @font-face를 이용해 폰트 파일을 불러온다.
+                3.불러온 폰트 파일을 이용해 새로운 font-family를 만든다.
+                4.만은 font-family를 사용한다.
+
+            - 외부 서비스에서 제공하는 링크를 이용하는 방법 : @import 혹은 <link> 이용
+                1.구글폰트에 접속해서 원하는 폰트를 찾는다.
+                2.폰트를 상세페이지 접속 후, 원하는 굵기의 폰트 옆에 있는 Select this style를 클릭한다.
+                3.Use on web 항복에서 import를 선택하고, 해당 import 구문을 css파일 내에 입력한다.
+                4.css rules to specify familes를 참고하여 font-family를 사용하면 된다.
+
+<폰트 속성>
+    font-size : 18px = 텍스트의 크기를 지정한다.
+    font-weight : 600 = 폰트의 두께를 설정한다. (기본적으로 400입니다. 100단위로 설정기 단, 폰트에서 weight를 지원을 안해 줄 수 있다.)
+    text-decoration : underline | overline | line-through = 텍스트에 장식용 선을 추가한다.
+    color : #000000 폰트의 색을 지정해준다.
+        [적용 방법]
+        color : red;
+        color : #5145d8;
+        color : rgb(213,229,37)
+
+    line-height : 1.8 = 텍스트의 행간을 설정한다.(1을 입력했을때는 폰트 사이즈의 1배이다. 다른 다위로도 이용가능 ex) px
+    letter-spacing : normal(기본 값) | 20px | 0.5em | -2px = 텍스트의 자간을(좌우 간격) 설정한다. 이떄 값이 클수록 글자가 벌어지고 음수 일수록 간격이 줄어든다.
+    word-spacing :  normal(기본 값) | 2px | 0.5em = 텍스트의 단어 간 간격을 지정한다. = 텍스트의 자간을(좌우 간격) 설정한다. 이떄 값이 클수록 단어사이가 벌어지고 음수 일수록 간격이 줄어든다.
+    text-align : center | left | right | justify(각각의 띄어 쓰기를 조정해 왼쪽 라인이 한줄로 되도록 도와준다. 단점은 각줄마다 띄어쓰기의 크기가 달라져 가독성이 떨어진다.) = 가로 방향으로 블록요소나 표 안에서 텍스트의 가로 정렬 방식을 지정한다.
+    vertical-align :top | middle | bottom= 인라인 요소나 표 안에서 텍스트의 (세로) 정렬 방식을 지정한다.
+    text-indent : 10% (기본 값은 0,양수,음수 둘다 가능 * 단 음수값을 사용할 경우 위쪽 라인으로 튀어나오게 된다.)= 텍스트의 들여쓰기를 설정한다.
+    text-transform : none(기본값) | capitalize(모든 어절에 앞글자를 대문자) | uppercase(모든글자 대문자) | lowercase(글자가 굵어진다.) = 영문 텍스트의 대/소문자를 바꿀 수 있습니다.
+    word-break : keep-all(어절을 기준으로 줄바꿈 즉, 띄어쓰 기 기준) | break-all(한단어를 무시하고 줄 바꿈) = 텍스트가 콘텐츠 박스 영역 밖으로 넘쳤을 때, 어떻게 줄을 바꿀지 설정합니다.
+    overflow-wrap : normal | break-word = 단어가 콘탠츠 박스 영역 밖으로 넘쳤을 때, 줄바꿈 여부를 설정합니다. 즉, 단어를 쪼개도 괜찮다. *본문 영역에  많이 사용이 된다.
+    overflow : visible(기본값) | hidden(넘처나면 자른다) | scroll(무조건 스크롤을 부여한다.) | auto(내용을 인식해서 스크롤을 설정함) = 콘텐츠가 커서 요소 안에서 내용을 다 보여주기 힘들 때, 어떤 방식으로 보여줄지 설정합니다.
+    text-overflow : clip | ellipsis(텍스트가 넘치면 ...으로 자연스럽게 표기 가능) = 줄바꿈을 하지 않을 떄, 요소 밖으로 넘치는 text를 어떻게 표기할 것인지 설정합니다. * 줄바꿈을 하지않았을 떄만 적용된다. 선행조건(이걸 적용해주어야 적용이된다.) => white-space : nowrap(줄 바꿈을 하지 않는다는 것을 의미한다.);, overflow : hidden
+
+<단위>
+    1. 절대 단위 (절대적인 값)
+        -px(화면을 구성하는 가장 기본이 되는 단위)
+        -pt(인쇄를 위한 단위) *웹에서는 사용안함
+    2. 상대 단위 (유동적인 값)
+        -%(부모 요소의 해당 속성 값에 비례하여 지정한 비율의 값을 적용한다.)
+        -em(스타일 지정 요소의 font-size 속성 값에 비례하여 값을 결정한다.)
+            ex) font -size : 16px인 경우
+                1em => 16 * 1 = 16px
+                0.8em => 16 * 0.8 = 12.8px
+                3em => 16 * 3 = 48px
+        -rem(최상의 html요소의 font-size 속성 값에 비례하여 값을 결정한다.)
+            ex) 1rem => 16 * 1 = 16px
+                0.8rem => 16 * 0.8 = 12.8px
+                3rem => 16 * 3 = 48px
+
+<Cascading>
+    1. 중요도
+        - CSS가 선언된 위치에 따라 우선순위가 결정된다.
+            브라우저 스타일 시트 < 사용자 스타일 시트 < 개발자 스타일 시트
+                                                    - [link로 연결한 css파일] < [style 요소 안에 있는 CSS] < [인라인 스타일 CSS] 
+
+    2. 구체성 (명시도)
+        - 선택할 대상을 구체적으로 특정할수록 명시도가 높아진다. 명시도가 높아지면 우선순위도 함께 높아진다.
+            부모에게 상속받은 속성 < 전체 선택자 < 태그 선택자 < 클래스 선택자, 가상 선택자 < ID선택자
+         -> (*)전체 선택자    <      (p)태그 선택자     <     (.class)class 선택자(&가상 선택자)    <    (#id)id 선택자
+        *강제로 명시도 끌어올리기 = !important 
+        ex) *{
+                color : red!important; 
+             }
+        
+
+    3. 선언 순서
+        
+<배경>
+    <background-color>
+        요소의 배경에 색상을 지정한다.
+        [적용 방법] 
+            background-color : red;
+            background-color : #5145d8;
+            background-color : rgb(213,229,37)
+
+    <background-image>
+        요소의 배경 이미지를 한 개, 혹은 여러 개 지정한다.
+        [적용 방법] 
+            background-image : url("이미지 경로")
+            *그라데이션도 지정이 가능하다.
+                linear-gradient(to top | to right | to left | to bottom, red, blue);(방향, 시작 색상, 종료 색상)
+                radial-gradient(방향, 시작 색상, 종료 색상) = 원형
+                conic-gradient(방향, 시작 색상, 종료 색상) = 일직선
+            [동시 선언 방법]
+             background-image : url("이미지 경로"), linear-gradient(방향, 시작 색상, 종료 색상) = 앞에 있는게 먼저 깔리고 그 뒤에 있는게 뒤에 깔린다.
+             background-image : url("이미지 경로"), url("이미지 경로") = 앞에 있는게 먼저 깔리고 그 뒤에 있는게 뒤에 깔린다.
+
+            [배경 위치]
+            요소의 배경 이미지의 위치를 지정한다.
+            background-position : center | bottom | top | right | left;
+            ex) background-position : top right;
+                *배경에서 이미지가 우측상단에 위치하게된다.
+
+            [배경 반복]
+            요소의 배경 이미지의 반복 여부, 반복 방향을 지정합니다.
+            background-repeat : no-repeat(반복하지 않고 딱 한게의 이미지만 들어간다) | repeat-x(x축방향으로 반복) | repeat-x(y축방향으로 반복)
+
+            [배경의 크기]
+            요소의 배경 이미지의 크기를 지정합니다.
+            background-size : cover(이미지를 늘려서 빈틈이 없도록 채워줌) | auto(기본값) | contain(요소의 크기를 딱 맞게 맞춰줌);
+            background-size : 200px 160px (x축, y축)
+
+            [배경이미지에 스크롤 여부]
+            요소의 배경 이미지의 스크롤 여부를 지정한다.
+            background-attachment : scroll(기본값) | fixed(고정) | local(스크롤과 동시에 가능);
+
+            [background의 단축속성]
+            background 관련 속성들을 한 번에 지정할 수 있습니다.
+            이용가능한 요소들 = background-color, background-image, background-position, background-repeat, background-size
+                ex) background: color image repeat position/size attachment
+                    background: red url("") no-repeat center/cover fixed
+
+        <비디오나 이미지의 위치와 사이지 지정 하는 방법>
+            [object-fit]
+            <img>나 <video>등 대체 요소의 내용이 지정된 너비와 높이에 맞춰지는 방식을 지정합니다.
+            object-fit : fill(기본값) | cover(이미지에 빈틈을 안주고 적절한 너비를 준다.) | contain(이미지의 전체) | none(원본사이즈를 기본으로 보여준다.);
+
+            [object-position]
+            <img>나 <video>등 대체요소의 콘텐츠 정렬 방식을 지정합니다.
+            object-position: center top;
+            ex) object-position: 100px 50px | left | center top;
+            
+<색상 표기법 3가지>
+    - 색상 이름
+        color:red;(기본16색 + 200색 = 총 216가지 색 표기 가능)
+        *웹 안전 색상(Web Safe color) : 어떤 운영체제, 어떤 브라우저에서도 '안전하게' 그려지는 색을 뜻한다.
+    
+    - Hex 색상코드 (실무에서 가장 많이 사용되는 방법)
+        color:#94FB11;
+        16진수 여섯자리로 색상을 표기하는 방법 #ffffff ~ #000000
+
+    - rgb/rgba
+        rgb(red, green, blue)값을 이용해 색상을 표기하는 방법
+        color:rgb(251,247,17);
+
+    [RGB 색상코드]
+    rgb 각 요소에는 0에서 255사이의 숫자를 입력할 수 있다.
+    ex) rgb(0,0,0)
+        rgba(0,0,0,0.35)
+        *rgba를 이용하면 색상에 투명도도 적용할 수 있다.
+    
+    <요소에 불투명도>
+        요소의 불투명도를 설정합니다 0부터 1까지의 숫자를 지정할 수 있습니다.
+        opacity:0.33
+
+<단위>
+    상대 단위 -vw / vh : 요소의 규격을 viewport의 너비값과 높이값에 비례하여 결정합니다.
+    
+    <viewport>
+    1200(px) * 920(px)인 경우
+
+    10vw => 1200 * 0.1 = 120px
+    50vh => 920 * 0.5 = 460px
+    10vw => 1200 * 1 =1200px
+
+<단위 심화>
+    calc() : 괄호 안의 사칙연산을 수행한 결과를 속성값으로 사용한다.
+        ex) calc(2*100px);
+            *덧셈과 뺄셈을 할때는 반드시 부호의 앞뒤에 띄어쓰기를 사용해야한다.
+
+<position 이란?>
+    HTML 요소가 배치되는 방식을 결정하는 속성
+        <position 속성값>
+            - static(기본값) : 요소를 문서상 원래 있어야하는 위치에 배치된다. (* top/ left / bottom / right 적용 불가)
+            - relative : 원래 있던 자리를 기준으로 요소의 위치를 조정할 수 있다.(* top/ left / bottom / right 적용 가능)
+            - absolute : 절대 좌표를 기준으로 요소의 위치를 조정할 수 있다.
+            - fixed : 스크롤과 무관하게 뷰포트를 기준으로 요소의 위치를 설정할 수 있다. (기준 : viewport)
+            - sticky : 요소의 원래 위치에 있다가 스크롤이 내려가면 지정한 좌표에 고정됩니다.
+
+        <top / left / bottom / right>
+            해당 방향 기준으로 요소의 좌표값을 변경한다.
+
+        <z-index>
+            여러개의 요소가 겹쳐져 있을 때, 무엇이 앞으로 나올지 결정하는 속성
+            기본값 : auto 숫자가 클수록 앞쪽으로 온다.
+
+<transition>
+    css속성을 이용하여 애니메이션을 부드럽게 만들어 줄 수 있다.
+    
+    - 어떠한 속성(property)에 transition을 적용할 것인지 지정한다
+        ex) transition-property: color, transform
+
+    -transition에 걸리는 시간을 지정한다
+        ex) transition-duration: 0.2s(초) | ms(밀리초)
+
+    -transition의 속도 패턴을 지정한다.
+        ex) transition-duration: ease-in-out
+
+        <transition-timing-function>
+            -linear : 일정한 속도로 변화한다
+            -ease : 시작할 때 에는 빨라지다 느려진다.
+            -ease-in : 천천히 시작했다가, 속도를 높여 끝난다.
+            -ease-out: 빠른 속도로 시작했다가, 천천히 끝난다.
+            -ease-in-out: 천천히 시작했다가, 정상속도가 됐다가, 빠르게 끝난다.
+        
+        <transition-delay>
+            transition요청을 받은 후, 실제로 실행되기까지 기다려야하는 시간의 양을 지정한다.
+            ex) transition-delay : 0.2s
+
+        <transition 단축 속성>
+            ex) transitionc : color 0.4s ease-on-out 1s (property -> duration -> timing-function -> delay)
+
+<transform이란?>
+    1. 변형 시킨다는 의미
+    2. 요소에 이동, 회전, 확대축소, 비틀기 등의 변형 효과를 줄 수 있다.
+
+
+<transform의 속성값>
+    변환 함수를 중첩 적용 시키는 것이 가능한 속성이다.
+
+    - translate(x,y) : 요소의 좌표를 움직일 수 있다. X축으로 x만큼, Y축으로 y만큼 이동시킨다.
+        ex) transform : translate(20px, 25%)
+        -translateX(n): 요소의 X축 좌표를 n만큼 움직일 수 있다.
+        -translateY(n): 요소의 Y축 좌표를 n만큼 움직일 수 있다.
+    
+    - scale(x, y) : X축으로 x만큼, Y축으로 y만큼, 요소를 축소 혹은 확대한다.
+        ex)transform:scale(0.75 , 1.1) : X축으로 0.75만큼 축소, Y축으로 1.1배 만큼 확대 시킨다는 의미 
+        -scaleX(n) : 요소의 X축 좌표를 n만큼 축소 및 확대
+        -scaleY(n) : 요소의 Y축 좌표를 n만큼 축소 및 확대
+
+    - skew(x-angle, y-angle) : X축으로 x만큼, Y축으로 y만큼, 요소를 기울인다.
+        ex)transform:skew(15deg,10deg)
+        skewX(n) : 요소의 X축 좌표를 n만큼 기울인다.
+        skewY(n) : 요소의 X축 좌표를 n만큼 기울인다.
+    *deg는 몇도를 말할때 사용이된다.
+
+    - rotate(angle) : 요소를 n만큼 회전시킨다.
+        ex)transform:rotate(45deg)
+
+<transform + transition>
+    transform은 transition이나 animation과 함께 사용하여 더 다채로운 애니메이션 효과를 만글 수 있다.
+
+<animation 이란?>
+    여러 이미지를 연결해서 자연스럽게 움직이는 것처럼 보이게 만드는 기법
+
+    <CSS을 이용해서 애니메이션을 만드는 두 가지 방법>
+    1.transition 속성 활용 : 특정한 이벤트를 기점으로 작동한다.
+    2.animation 속성과 keyframe 활용 : animation은 시작하기 위한 이벤트가 필요 없다. 시작, 정지, 반복까지 제어 할 수 있다.
+        * @keyframes로 애니메이션을 정의하고, 정의한 애니메이션을 불러와서 제어해주어야 한다.
+
+<keyframes>
+    CSS 애니메이션의 시작, 중간, 끝 등의 중간상태를 정의한다.
+    ex)@keyframes moveright[애니메이션 이름]{
+        from{ [시작 지점의 CSS] 
+            left:0;
+        }
+        to{ [종료 시점의 CSS]
+            left: 200px
+        }
+    }
+
+    *from & to 대신 진행도(%)표기도 가능!
+    ex)@keyframes moveright{
+        0%{
+            left : 0;
+        }
+
+        50%{
+            left : 200px;
+        }
+
+        100%{
+            top : 200px;
+            left : 200px;
+        }
+    }
+
+<animation 관련 속성>
+
+    -animation-name : 어떠한 keyframes를 요소에 적용할 것인지 지정한다.
+        ex)animation-name:moveright
+
+    -animation-duration : 애니메이션을 한 번 재생하는데 걸리는 시간을 설정한다.
+        ex)animation-duration:2s
+
+    -animation-direction : 애니메이션 재생 방향을 정의한다.(정방향/역방향)
+        ex) animation-direction : normal(기본값) | reverse(역방향으로 재생한다.) |  alternate(정방향으로 재생한다. 단, 반복시 정방향 / 역방향을 번갈아 재생한다.) | alternate-reverse(역방향으로 재생한다. 단, 반복시 역방향 / 정방향을 번갈아 재생핸다.)
+
+    -animation-iteration-count : 애니메이션 재생 횟수를 정의한다
+        ex) animation-iteration-count : 0(기본값) | infinite(무한재생) | n(n번 재생)
+
+    -animation-timing-function : 애니메이션 재생 패턴을 정의한다. transition-timing-function과 유사하다.
+        ex) animation-timing-function : ease-in-out
+
+    -animation-delay : 애니메이션 시작을 얼마나 지연할 지 설정한다.
+        animation-delay:2s
+
+    <animation 단축 속성>
+        - animation : moveright 0.4s linear 1s infinite alternate  | name -> duration -> timing-function -> delay iteration-count -> direction
+
+
+<grid>
+    <grid 레이아웃>
+        - grid 레이아웃 시스템의 구조
+            그리드는 2차원적인 구조를 가지고 있다. row와 column 레이아웃 동시 설정 가능하다
+
+        - 기본적인 레이아웃 짜는 방법
+
+    <grid 속성>
+        - display : grid
+        
+        - grid-container : 그리드를 적용하게 되면 container가 된다.
+
+        - grid-item : 그리드의 자식 요소이다.
+
+        - grid-line : 열과 행을 나눈것들 grid-line이라고 한다.
+
+        - grid-number : 나누어진 각 각의 열과 행을 grid-number라고 한다.
+
+    <grid-template-rows>
+        grid의 행의 개수 및 크기를 지정할 수 있다.
+        ex)grid-template-rows: 1fr 2fr 200px (그리드의 행은 3개로 이루어 져있으며 각 구격은 1fr 2fr 200px이다.)
+        ex)grid-template-columns: 1fr 2fr 200px (그리드의 열은 3개로 이루어 져있으며 각 구격은 1fr 2fr 200px이다.)
+            
+            *<fr>
+            그리드에 사용되는 fr은 fraction(분수)의 약자, grid-template에서 사용할 수 있는 비율 단뒤
+            ex)grid-template-columns : 1fr 2fr 1fr 1fr 이게되면 화면에서 차지하는 비울이 1 : 2 : 1 : 1이렇게 적용이 된다.
+
+    <repeat(a,b)>
+        grid-template에서 사용할 수 있는 반복 함수 b 규격의 grid-template을 a개 생성한다.
+        ex)grid-template-columns : repeat(4,1fr) == grid-template-columns:1fr 1fr 1fr 1fr
+        ex)grid-template-rows : repeat(2,1fr,200px) == grid-template-rows:1fr 200px 1fr 200px
+        ex)grid-template-rows : 3fr repeat(2,1fr,200px) == grid-template-rows:3fr 1fr 200px 1fr 200px
+
+    <grid-gap>
+        그리드 아이템 사이의 공백을 줄 수 있다.
+        ex)grid-gap:5px
+
+    <grid-column / grid-row>
+        grid-item이 얼마만큼의 영역을 차지할지 정의한다.
+        ex)grid-column: 1/3 (시작점 / 종료지점)
+        
+        grid-column은 grid-line의 번호
+        grid-row는 grid-number의 번호를 기준으로 영역을 할당한다.
+
+        *grid-column: 1/ span 2;
+            span은 1부터 시작해서 2칸을 차지한다는 것을 의미한다. 
+
+
+<CSS Basic 반응형 웹>
+    - 스마트폰, 태블릿 PC, 데스크탑 PC
+
+<미디어 쿼리>
+    - 뷰포트의 너비에 따라 웹 사이트의 스타일 시트를 수정할 수 있다.
+    (뷰포트 너비 이외에도 단말기의 종류 해상도 등을 기준으로 설정할 수 있다.)
+
+    ex) @media screen and (max-width: 500px){
+        //스크린의 viewport 너비가 500px 이하일 경우
+        //적용시킬 스타일 시트
+    }
+
+<break Point>
+    - break Point란 반응형 웹사이트 작업의 기준이 되는 중단점을 말한다.
+    간단하게 말해서, pc/태블릿/모바일의 기준이 되는 규격 분기이다!
+
+    <종단점 기준>
+        - 모바일 : 0 ~ 767px
+        - 태블렛 : 768px ~ 1023px
+        - PC : 1024px ~ 1439px
+        - PC Large : 1440px ~
+
+<반응형 실습>
+    - 반응형에서 자주 쓰이는 속성
+        max-width & max-height : 해당 요소의 최대 너비 or 최대 높이를 설정합니다.
+        ex) max-width : 1240px
+
+    -  min-width & min-height : 해당 요소의 최소 너비 or 최소 높이를 설정합니다.
+        ex) min-height : 420px
+
+    - max() : 소괄호 안에 입역된 값 중 제일 높은 값을 속성값으로 출력하는 함수
+        ex) height : max(320px, 20%)
+
+    - min() : 소괄호 안에 입역된 값 중 제일 낮은 값을 속성값으로 출력하는 함수
+        ex) width : min(1240px, 100%)
+
+    

@@ -1,0 +1,17 @@
+.block-continer{
+    border: 1px solid blue;
+}
+.lnline-container{
+    border: 1px solid red;
+}
+
+.block-continer div{
+    border: 3px solid green;
+    width: 400px;
+    display: inline;
+}
+.lnline-container span{
+    background-color: red;
+    width: 400px;
+    display: block;
+}
